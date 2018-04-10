@@ -2,6 +2,9 @@ import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize('slack', 'postgres', 'postgrespass', {
   dialect: 'postgres',
+  define: {
+    underscored: true,
+  },
 });
 
 const models = {
@@ -20,4 +23,4 @@ Object.keys(models).forEach((modelName) => {
 models.sequelize = sequelize;
 models.Sequelize = Sequelize;
 
-module.exports = models;
+export default models;
