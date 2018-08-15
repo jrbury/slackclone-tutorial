@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import _ from 'lodash';
 
 import { tryLogin } from '../auth';
@@ -18,18 +17,10 @@ export default {
   Mutation: {
     login: (parent, { email, password }, { models, SECRET, SECRET2 }) =>
       tryLogin(email, password, models, SECRET, SECRET2),
-    register: async (parent, { password, ...otherArgs }, { models }) => {
+    register: async (parent, args, { models }) => {
       try {
-        if (password.length < 5) {
-          return {
-            ok: false,
-            errors: [{ path: 'password', message: 'Your password must be at least 5 characters' }],
-          };
-        }
+        const user = await models.User.create(args);
 
-        const hashedPassword = await bcrypt.hash(password, 12);
-
-        const user = await models.User.create({ ...otherArgs, password: hashedPassword });
         return {
           ok: true,
           user,
