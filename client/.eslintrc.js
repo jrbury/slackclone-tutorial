@@ -7,6 +7,7 @@ module.exports = {
     localStorage: true,
   },
   rules: {
+    'no-console': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'off',
   },
